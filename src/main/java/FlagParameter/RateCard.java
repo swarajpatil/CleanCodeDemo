@@ -19,7 +19,7 @@ public class RateCard {
         if (isWeekend) {
             return noOfDays * weekendPrice + (noOfDays * 2000) * weekendServiceTax;
         } else {
-            return noOfDays * weekDayPrice + (noOfDays * 2000) * weekDayServiceTax;
+            return noOfDays * weekDayPrice + (noOfDays * 1000) * weekDayServiceTax;
         }
     }
 }

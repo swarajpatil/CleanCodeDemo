@@ -14,7 +14,7 @@ public class Game implements IGame {
         gameSaver.save(this);
     }
 
-    public void startNewGame() throws Exception {
+    public void startNewGame() {
         numberOfPlayers = consoleGui.readNextRoll();
     }
 

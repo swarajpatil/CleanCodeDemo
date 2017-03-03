@@ -1,52 +1,60 @@
 package main.java.DuplicateCode;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-class ContractorEmployee extends Employee {
-    private double Basicz;
-    private double DA;
-    private double TA;
-    private double MA;
-    private double mealVoucherAmount;
-    private double PetrolExpenses;
-    private double InternetExpenses;
-    private double taxIncome;
-    private Date hireDate;
-    private boolean IsParentCovered;
-    private int casualLeave;
-    private int SickLeave;
-    private int leavesTaken;
+import static java.time.temporal.ChronoUnit.DAYS;
 
-    public double calculateIncomeTax() {
-        double grosssalary = getGrosssalary();
-        if (grosssalary * 12 > 250000 && grosssalary * 12 < 500000)
-            return grosssalary * 0.1;
-        if (grosssalary * 12 > 500000 && grosssalary * 12 < 1000000)
-            return grosssalary * 0.2;
-        if (grosssalary * 12 > 1000000)
-            return grosssalary * 0.3;
-        return 0;
+public class ContractorEmployee {
+    private String name;
+    private LocalDate dateOfBirth;
+    private LocalDate hireDate;
+    private double Basic;
+    private double travelAllowance;
+    private double HRA;
+    private double medicalAllowance;
+
+    public ContractorEmployee(String name, LocalDate dateOfBirth, LocalDate hireDate, double basic, double travelAllowance, double hra, double medicalAllowance) {
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.hireDate = hireDate;
+        this.Basic = basic;
+        this.travelAllowance = travelAllowance;
+        this.HRA = hra;
+        this.medicalAllowance = medicalAllowance;
     }
+
 
     public double calculateInsuranceAmount() {
-        double grosssalary = getGrosssalary();
-        double insuranceamount = grosssalary * 2 + 1.5 * Basic;
+        double grosssalary = (Basic + HRA + travelAllowance + medicalAllowance) - Basic * 12 / 100;
+        double insuranceamount = grosssalary * 4;
 
-        long diff = hireDate.getTime() - new Date().getTime();
-        long d = (1000 * 60 * 60 * 24 * 365);
-        Integer yearOfService = Math.round(diff / d);
+        long diff = DAYS.between(hireDate, LocalDate.now());
+        Integer yearOfService = Math.round(diff / 365);
 
-        if (yearOfService > 1)
-            insuranceamount += grosssalary * yearOfService * 0.2;
+        if (yearOfService > 2)
+            insuranceamount += grosssalary * yearOfService * 0.5;
 
-        if (IsParentCovered)
-            insuranceamount += grosssalary * 1.2 + 10000;
 
-        return insuranceamount;
+        long diff1 = DAYS.between(dateOfBirth, LocalDate.now());
+        Integer age = Math.round(diff1 / 365);
+
+        if (age > 40)
+            insuranceamount += grosssalary * 3;
+
+        return Math.round(insuranceamount);
     }
 
-    public int calculateLeaveBalance() {
-        return casualLeave + SickLeave - leavesTaken;
+    public double calculateSpecialIncentive() {
+        double grosssalary = (Basic + HRA + travelAllowance + medicalAllowance) - Basic * 12 / 100;
+        double incentiveAmount = grosssalary * 0.2;
+
+        long diff = DAYS.between(hireDate, LocalDate.now());
+        Integer yearOfService = Math.round(diff / 365);
+
+        if (yearOfService > 3)
+            incentiveAmount += Basic * yearOfService;
+
+        return incentiveAmount;
     }
 }
 

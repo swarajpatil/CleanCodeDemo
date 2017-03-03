@@ -9,4 +9,8 @@ package main.java.SpeculativeGenerality;
  */
 public interface IGame {
     void saveGame();
+
+    void startNewGame();
+
+    int getNumberOfPlayers();
 }
