@@ -1,16 +1,16 @@
 package main.java.SwitchStatement;
 
-public class CabBooking {
+public class BusBooking {
 
-    public String[] getCarNamesForCabType(CabType cabType) {
+    public String[] getNamesForBusType(BusType cabType) {
         switch (cabType) {
-            case uberGO: {
+            case Seating: {
                 return new String[]{"Indica", "Etios", "Wagnor", "Swift Dzire", "Mahindra Verito"};
             }
-            case uberX: {
+            case NonACSleeper: {
                 return new String[]{"Toyota Camry", "Honda Accord", "Ford Escape"};
             }
-            case uberSUV: {
+            case ACSleeper: {
                 return new String[]{"Mahindra XUV", "Scorpio", "Creta"};
             }
         }
